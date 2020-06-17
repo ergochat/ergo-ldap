@@ -66,6 +66,11 @@ func run() (success bool, err error) {
 	if err != nil {
 		return
 	}
+	// sanity check; for certfp-based auth, these will be empty,
+	// don't let the check pass even if the LDAP server is weirdly misconfigured
+	if input.AccountName == "" || input.Passphrase == "" {
+		return false, nil
+	}
 
 	ldapErr := ldap.CheckLDAPPassphrase(config, input.AccountName, input.Passphrase)
 	switch ldapErr {
