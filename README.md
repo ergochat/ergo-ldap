@@ -21,3 +21,5 @@ To configure oragono to use this plugin, add a section like this to your `accoun
         # how long after the SIGTERM before we follow up with a SIGKILL:
         kill-timeout: 1s
 ```
+
+You will most likely also want to set `require-sasl: true` and `accounts.registration.enabled: false`.
