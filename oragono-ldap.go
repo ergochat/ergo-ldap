@@ -46,9 +46,9 @@ func LoadRawConfig(filename string) (config ldap.ServerConfig, err error) {
 	return
 }
 
-func run() (err error) {
+func run() (success bool, err error) {
 	if len(os.Args) < 2 {
-		return ErrNoConfigFile
+		return false, ErrNoConfigFile
 	}
 	config, err := LoadRawConfig(os.Args[1])
 	if err != nil {
@@ -67,17 +67,25 @@ func run() (err error) {
 		return
 	}
 
-	err = ldap.CheckLDAPPassphrase(config, input.AccountName, input.Passphrase)
-	return
+	ldapErr := ldap.CheckLDAPPassphrase(config, input.AccountName, input.Passphrase)
+	switch ldapErr {
+	case nil:
+		// success
+		return true, nil
+	case ldap.ErrCouldNotFindUser, ldap.ErrInvalidCredentials, ldap.ErrUserNotInRequiredGroup:
+		// auth failed, but not an error
+		return false, nil
+	default:
+		return false, ldapErr
+	}
 }
 
 func main() {
 	var output AuthScriptOutput
-	err := run()
-	if err == nil {
+	success, err := run()
+	if success && err == nil {
 		output.Success = true
-	} else {
-		output.Success = false
+	} else if err != nil {
 		output.Error = err.Error()
 	}
 
