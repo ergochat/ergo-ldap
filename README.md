@@ -3,6 +3,8 @@ oragono-ldap
 
 This is an authentication plugin for Oragono that defers password checking to an LDAP server.
 
+To build the plugin, [install Go 1.14 or higher](https://golang.org/dl), then run `make`; this will build an `oragono-ldap` binary.
+
 See `example.yaml` for LDAP authentication options.
 
 To configure oragono to use this plugin, add a section like this to your `accounts` block:
