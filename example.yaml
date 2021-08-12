@@ -1,12 +1,15 @@
 # this is an example config for the oragono-ldap plugin.
 # consult the grafana docs for details on how to configure this:
 # https://grafana.com/docs/grafana/latest/auth/ldap/
+# XXX: where grafana uses underscores in key names, we use hyphens
 
 # example configuration that works with Forum Systems's testing server:
 # https://www.forumsys.com/tutorials/integration-how-to/ldap/online-ldap-test-server/
 host: "ldap.forumsys.com"
 port: 389
 timeout: 30s
+# uncomment for TLS:
+# use-ssl: true
 
 # example "single-bind" configuration, where we bind directly to the user's entry:
 bind-dn: "uid=%s,dc=example,dc=com"
