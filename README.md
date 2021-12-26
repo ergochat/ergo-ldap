@@ -1,7 +1,7 @@
-oragono-ldap
-============
+ergo-ldap
+=========
 
-This is an authentication plugin for Oragono that defers password checking to an LDAP server.
+This is an authentication plugin for Ergo that defers password checking to an LDAP server.
 
 To build the plugin, [install Go 1.14 or higher](https://golang.org/dl), then run `make`; this will build an `oragono-ldap` binary.
 
