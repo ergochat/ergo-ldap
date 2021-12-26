@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # exclude vendor/
-SOURCES="./oragono-ldap.go ./ldap"
+SOURCES="./ergo-ldap.go ./ldap"
 
 if [ "$1" = "--fix" ]; then
 	exec gofmt -s -w $SOURCES

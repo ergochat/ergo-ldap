@@ -12,7 +12,7 @@ import (
 
 	"gopkg.in/yaml.v2"
 
-	"github.com/oragono/oragono-ldap/ldap"
+	"github.com/ergochat/ergo-ldap/ldap"
 )
 
 var (

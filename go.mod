@@ -1,4 +1,4 @@
-module github.com/oragono/oragono-ldap
+module github.com/ergochat/ergo-ldap
 
 go 1.14
 
