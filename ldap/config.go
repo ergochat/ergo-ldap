@@ -18,6 +18,7 @@ import (
 )
 
 type ServerConfig struct {
+	URL           string
 	Host          string
 	Port          int
 	Timeout       time.Duration

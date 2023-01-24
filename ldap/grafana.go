@@ -13,6 +13,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"net/url"
 	"strings"
 
 	ldap "github.com/go-ldap/ldap/v3"
@@ -67,6 +68,32 @@ func (server *serverConn) Dial() error {
 			return err
 		}
 	}
+
+	if server.Config.URL != "" {
+		url, err := url.Parse(server.Config.URL)
+		if err != nil {
+			return err
+		}
+		tlsCfg := &tls.Config{
+			InsecureSkipVerify: server.Config.SkipVerifySSL,
+			RootCAs: certPool,
+		}
+		if len(clientCert.Certificate) > 0 {
+			tlsCfg.Certificates = append(tlsCfg.Certificates, clientCert)
+		}
+		if url.Scheme == "ldaps" && server.Config.StartTLS {
+			url.Scheme = "ldap"
+			server.Connection, err = ldap.DialURL(url.String())
+			if err == nil {
+				err = server.Connection.StartTLS(tlsCfg)
+			}
+		} else {
+			opt := ldap.DialWithTLSConfig(tlsCfg)
+			server.Connection, err = ldap.DialURL(server.Config.URL, opt)
+		}
+		return err
+	}
+
 	for _, host := range strings.Split(server.Config.Host, " ") {
 		address := fmt.Sprintf("%s:%d", host, server.Config.Port)
 		if server.Config.UseSSL {
