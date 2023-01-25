@@ -11,6 +11,9 @@ timeout: 30s
 # uncomment for TLS:
 # use-ssl: true
 
+# uncomment for LDAPI:
+# url: "ldapi:///path/to/ldap/unix.socket"
+
 # example "single-bind" configuration, where we bind directly to the user's entry:
 bind-dn: "uid=%s,dc=example,dc=com"
 
