@@ -76,7 +76,7 @@ func (server *serverConn) Dial() error {
 		}
 		tlsCfg := &tls.Config{
 			InsecureSkipVerify: server.Config.SkipVerifySSL,
-			RootCAs: certPool,
+			RootCAs:            certPool,
 		}
 		if len(clientCert.Certificate) > 0 {
 			tlsCfg.Certificates = append(tlsCfg.Certificates, clientCert)
