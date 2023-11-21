@@ -36,5 +36,5 @@ bind-dn: "uid=%s,dc=example,dc=com"
 
 # example of group membership testing via user attributes, as in AD
 # or with OpenLDAP's "memberOf overlay" (overrides group-search-filter):
-#     attributes:
-#         member-of: "memberOf"
+#attributes:
+#    member-of: "memberOf"
